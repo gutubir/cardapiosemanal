@@ -4,11 +4,11 @@ Um projeto minimalista usando React com Vite e ESLint, ideal para quem quer come
 
 Este setup é ideal para projetos que querem:
 
-  -Inicialização rápida.
+-Inicialização rápida.
 
-  -Ambiente de desenvolvimento com HMR.
+-Ambiente de desenvolvimento com HMR.
 
-  -Configuração básica de ESLint para manter a qualidade do código.
+-Configuração básica de ESLint para manter a qualidade do código.
 
 
 🚀 Como rodar:
