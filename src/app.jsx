@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("home") // 'home', 'login', 'signup'
+  const [currentPage, setCurrentPage] = useState("home") // 'home', 'login', 'signup', 'demo'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const scrollToSection = (sectionId) => {
@@ -26,6 +26,10 @@ export default function App() {
     setCurrentPage("home")
   }
 
+  const goToDemo = () => {
+    setCurrentPage("demo")
+  }
+
   // Renderizar página baseada no estado
   if (currentPage === "login") {
     return <LoginPage goToHome={goToHome} goToSignup={goToSignup} />
@@ -33,6 +37,10 @@ export default function App() {
 
   if (currentPage === "signup") {
     return <SignupPage goToHome={goToHome} goToLogin={goToLogin} />
+  }
+
+  if (currentPage === "demo") {
+    return <DemoPage goToHome={goToHome} goToSignup={goToSignup} />
   }
 
   return (
@@ -108,7 +116,10 @@ export default function App() {
             >
               Começar Gratuitamente
             </button>
-            <button className="px-8 py-3 border border-gray-300 text-gray-600 hover:border-blue-600 hover:text-blue-600 rounded transition-colors font-medium text-lg">
+            <button
+              onClick={goToDemo}
+              className="px-8 py-3 border border-gray-300 text-gray-600 hover:border-blue-600 hover:text-blue-600 rounded transition-colors font-medium text-lg"
+            >
               Ver Demonstração
             </button>
           </div>
@@ -1187,6 +1198,529 @@ function SignupPage({ goToHome, goToLogin }) {
       </section>
 
       <footer className="bg-gray-50 py-6 px-5 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-600">&copy; 2024 MenuPlan. Todos os direitos reservados.</p>
+            <div className="flex gap-6">
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-sm">
+                Termos de Uso
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-sm">
+                Política de Privacidade
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-sm">
+                Suporte
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+// Componente de Demonstração
+function DemoPage({ goToHome, goToSignup }) {
+  const [activeDay, setActiveDay] = useState("segunda")
+  const [showAddMeal, setShowAddMeal] = useState(false)
+  const [newMeal, setNewMeal] = useState({ title: "", description: "", time: "", type: "almoço" })
+  const [meals, setMeals] = useState({
+    segunda: [
+      {
+        id: 1,
+        title: "Ovos mexidos com torrada integral",
+        description: "2 ovos, 2 fatias de pão integral, manteiga",
+        time: "08:00",
+        type: "café",
+      },
+      {
+        id: 2,
+        title: "Frango grelhado com salada",
+        description: "Peito de frango, alface, tomate, cenoura",
+        time: "12:30",
+        type: "almoço",
+      },
+      {
+        id: 3,
+        title: "Sopa de legumes",
+        description: "Abóbora, cenoura, batata, cebola",
+        time: "19:00",
+        type: "jantar",
+      },
+    ],
+    terca: [
+      { id: 4, title: "Vitamina de banana", description: "Banana, leite, aveia, mel", time: "08:00", type: "café" },
+      {
+        id: 5,
+        title: "Peixe assado com arroz",
+        description: "Filé de peixe, arroz integral, brócolis",
+        time: "12:30",
+        type: "almoço",
+      },
+      {
+        id: 6,
+        title: "Sanduíche natural",
+        description: "Pão integral, peito de peru, queijo branco",
+        time: "19:00",
+        type: "jantar",
+      },
+    ],
+    quarta: [
+      {
+        id: 7,
+        title: "Tapioca com queijo",
+        description: "Tapioca, queijo coalho, tomate",
+        time: "08:00",
+        type: "café",
+      },
+      {
+        id: 8,
+        title: "Macarrão com molho de tomate",
+        description: "Macarrão integral, molho caseiro, manjericão",
+        time: "12:30",
+        type: "almoço",
+      },
+    ],
+    quinta: [
+      {
+        id: 9,
+        title: "Iogurte com granola",
+        description: "Iogurte natural, granola, frutas vermelhas",
+        time: "08:00",
+        type: "café",
+      },
+      {
+        id: 10,
+        title: "Salada completa",
+        description: "Mix de folhas, grão de bico, queijo, nozes",
+        time: "12:30",
+        type: "almoço",
+      },
+      {
+        id: 11,
+        title: "Omelete de legumes",
+        description: "Ovos, abobrinha, tomate, cebola",
+        time: "19:00",
+        type: "jantar",
+      },
+    ],
+    sexta: [
+      {
+        id: 12,
+        title: "Pão francês com requeijão",
+        description: "Pão francês, requeijão light, suco de laranja",
+        time: "08:00",
+        type: "café",
+      },
+      {
+        id: 13,
+        title: "Pizza caseira",
+        description: "Massa integral, molho de tomate, mussarela",
+        time: "12:30",
+        type: "almoço",
+      },
+    ],
+    sabado: [
+      { id: 14, title: "Panqueca de aveia", description: "Aveia, banana, ovo, canela", time: "09:00", type: "café" },
+      {
+        id: 15,
+        title: "Churrasco",
+        description: "Carne bovina, linguiça, salada verde",
+        time: "13:00",
+        type: "almoço",
+      },
+      { id: 16, title: "Lanche da tarde", description: "Frutas variadas, castanhas", time: "19:00", type: "jantar" },
+    ],
+    domingo: [
+      {
+        id: 17,
+        title: "Café da manhã especial",
+        description: "Pão de açúcar, geleia, café com leite",
+        time: "09:30",
+        type: "café",
+      },
+      {
+        id: 18,
+        title: "Feijoada light",
+        description: "Feijão preto, carnes magras, couve",
+        time: "13:30",
+        type: "almoço",
+      },
+    ],
+  })
+
+  const days = [
+    { key: "segunda", label: "Segunda", short: "SEG" },
+    { key: "terca", label: "Terça", short: "TER" },
+    { key: "quarta", label: "Quarta", short: "QUA" },
+    { key: "quinta", label: "Quinta", short: "QUI" },
+    { key: "sexta", label: "Sexta", short: "SEX" },
+    { key: "sabado", label: "Sábado", short: "SAB" },
+    { key: "domingo", label: "Domingo", short: "DOM" },
+  ]
+
+  const mealTypes = [
+    { key: "café", label: "Café da Manhã", color: "bg-yellow-100 text-yellow-800" },
+    { key: "almoço", label: "Almoço", color: "bg-green-100 text-green-800" },
+    { key: "lanche", label: "Lanche", color: "bg-purple-100 text-purple-800" },
+    { key: "jantar", label: "Jantar", color: "bg-blue-100 text-blue-800" },
+  ]
+
+  const handleAddMeal = () => {
+    if (newMeal.title && newMeal.time) {
+      const meal = {
+        id: Date.now(),
+        ...newMeal,
+      }
+      setMeals((prev) => ({
+        ...prev,
+        [activeDay]: [...(prev[activeDay] || []), meal],
+      }))
+      setNewMeal({ title: "", description: "", time: "", type: "almoço" })
+      setShowAddMeal(false)
+    }
+  }
+
+  const removeMeal = (mealId) => {
+    setMeals((prev) => ({
+      ...prev,
+      [activeDay]: prev[activeDay].filter((meal) => meal.id !== mealId),
+    }))
+  }
+
+  const getMealTypeInfo = (type) => {
+    return mealTypes.find((mt) => mt.key === type) || mealTypes[1]
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={goToHome}>
+              <div className="w-9 h-9 bg-blue-600 text-white rounded flex items-center justify-center font-bold text-sm">
+                MP
+              </div>
+              <span className="text-xl font-semibold text-gray-900">MenuPlan</span>
+            </div>
+            <nav className="flex items-center gap-4">
+              <button onClick={goToHome} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                ← Voltar ao início
+              </button>
+              <button
+                onClick={goToSignup}
+                className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded transition-colors font-medium"
+              >
+                Criar Conta Grátis
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Demo Hero */}
+      <section className="py-12 px-5 bg-blue-600 text-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-4">MenuPlan</h1>
+          <p className="text-xl text-blue-100 mb-6">Veja como é fácil organizar suas refeições semanais</p>
+          <div className="inline-block bg-blue-500 px-4 py-2 rounded-lg text-sm">
+            💡 Experimente adicionar e remover refeições!
+          </div>
+        </div>
+      </section>
+
+      {/* Menu Planning Interface */}
+      <section className="py-8 px-5">
+        <div className="max-w-6xl mx-auto">
+          {/* Week Navigation */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-semibold text-gray-900">Cardápio da Semana</h2>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm">
+                    📄 Exportar PDF
+                  </button>
+                  <button className="px-4 py-2 border border-gray-300 text-gray-600 rounded hover:border-blue-600 hover:text-blue-600 transition-colors text-sm">
+                    💾 Salvar
+                  </button>
+                </div>
+              </div>
+              <p className="text-gray-600">Semana de 8 a 14 de Junho de 2025</p>
+            </div>
+
+            {/* Days Tabs */}
+            <div className="flex overflow-x-auto">
+              {days.map((day) => (
+                <button
+                  key={day.key}
+                  onClick={() => setActiveDay(day.key)}
+                  className={`flex-1 min-w-[120px] px-4 py-4 text-center border-b-2 transition-colors ${
+                    activeDay === day.key
+                      ? "border-blue-600 text-blue-600 bg-blue-50"
+                      : "border-transparent text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                  }`}
+                >
+                  <div className="font-medium">{day.short}</div>
+                  <div className="text-xs text-gray-500">{day.label}</div>
+                  <div className="text-xs mt-1 text-gray-400">{meals[day.key]?.length || 0} refeições</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Day Content */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Meals List */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="p-6 border-b border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {days.find((d) => d.key === activeDay)?.label}
+                    </h3>
+                    <button
+                      onClick={() => setShowAddMeal(true)}
+                      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm flex items-center gap-2"
+                    >
+                      <span>+</span>
+                      Adicionar Refeição
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  {meals[activeDay]?.length > 0 ? (
+                    <div className="space-y-4">
+                      {meals[activeDay]
+                        .sort((a, b) => a.time.localeCompare(b.time))
+                        .map((meal) => {
+                          const mealTypeInfo = getMealTypeInfo(meal.type)
+                          return (
+                            <div
+                              key={meal.id}
+                              className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow"
+                            >
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-3 mb-2">
+                                    <span
+                                      className={`px-2 py-1 rounded-full text-xs font-medium ${mealTypeInfo.color}`}
+                                    >
+                                      {mealTypeInfo.label}
+                                    </span>
+                                    <span className="text-sm text-gray-500">{meal.time}</span>
+                                  </div>
+                                  <h4 className="font-semibold text-gray-900 mb-1">{meal.title}</h4>
+                                  {meal.description && <p className="text-gray-600 text-sm">{meal.description}</p>}
+                                </div>
+                                <button
+                                  onClick={() => removeMeal(meal.id)}
+                                  className="text-gray-400 hover:text-red-600 transition-colors ml-4"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        })}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-gray-400"
+                        >
+                          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        </svg>
+                      </div>
+                      <h4 className="text-lg font-medium text-gray-900 mb-2">Nenhuma refeição planejada</h4>
+                      <p className="text-gray-600 mb-4">Adicione suas primeiras refeições para este dia</p>
+                      <button
+                        onClick={() => setShowAddMeal(true)}
+                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                      >
+                        Adicionar Refeição
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Quick Stats */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h4 className="font-semibold text-gray-900 mb-4">Resumo da Semana</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Total de refeições:</span>
+                    <span className="font-medium">{Object.values(meals).flat().length}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Dias planejados:</span>
+                    <span className="font-medium">
+                      {Object.values(meals).filter((dayMeals) => dayMeals.length > 0).length}/7
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Progresso:</span>
+                    <span className="font-medium text-blue-600">
+                      {Math.round((Object.values(meals).filter((dayMeals) => dayMeals.length > 0).length / 7) * 100)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tips */}
+              <div className="bg-blue-50 rounded-lg border border-blue-200 p-6">
+                <h4 className="font-semibold text-blue-900 mb-3">💡 Dicas do MenuPlan</h4>
+                <ul className="space-y-2 text-sm text-blue-800">
+                  <li>• Planeje refeições similares para economizar tempo</li>
+                  <li>• Use ingredientes que se repetem durante a semana</li>
+                  <li>• Prepare refeições em lotes nos fins de semana</li>
+                  <li>• Mantenha sempre opções saudáveis disponíveis</li>
+                </ul>
+              </div>
+
+              {/* CTA */}
+              <div className="bg-gray-900 rounded-lg p-6 text-white text-center">
+                <h4 className="font-semibold mb-2">Gostou da demonstração?</h4>
+                <p className="text-gray-300 text-sm mb-4">
+                  Crie sua conta gratuita e comece a organizar suas refeições hoje mesmo!
+                </p>
+                <button
+                  onClick={goToSignup}
+                  className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Criar Conta Grátis
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Add Meal Modal */}
+      {showAddMeal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Adicionar Refeição</h3>
+              <button onClick={() => setShowAddMeal(false)} className="text-gray-400 hover:text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block font-medium mb-2 text-gray-700">Tipo de Refeição</label>
+                <select
+                  value={newMeal.type}
+                  onChange={(e) => setNewMeal((prev) => ({ ...prev, type: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-600"
+                >
+                  {mealTypes.map((type) => (
+                    <option key={type.key} value={type.key}>
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-medium mb-2 text-gray-700">Horário</label>
+                <input
+                  type="time"
+                  value={newMeal.time}
+                  onChange={(e) => setNewMeal((prev) => ({ ...prev, time: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-600"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium mb-2 text-gray-700">Nome da Refeição</label>
+                <input
+                  type="text"
+                  value={newMeal.title}
+                  onChange={(e) => setNewMeal((prev) => ({ ...prev, title: e.target.value }))}
+                  placeholder="Ex: Frango grelhado com salada"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-600"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium mb-2 text-gray-700">Descrição (opcional)</label>
+                <textarea
+                  value={newMeal.description}
+                  onChange={(e) => setNewMeal((prev) => ({ ...prev, description: e.target.value }))}
+                  placeholder="Ex: Peito de frango, alface, tomate, cenoura"
+                  rows="3"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-600 resize-none"
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => setShowAddMeal(false)}
+                  className="flex-1 py-2 border border-gray-300 text-gray-600 rounded hover:border-blue-600 hover:text-blue-600 transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleAddMeal}
+                  className="flex-1 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-gray-50 py-6 px-5 border-t border-gray-200 mt-12">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-600">&copy; 2024 MenuPlan. Todos os direitos reservados.</p>
